@@ -1,4 +1,4 @@
-const Characters = () => {
+const Characters = (character) => {
     return (
         <main>
         <h1 id="name">{character.name}</h1>
@@ -14,9 +14,9 @@ const Characters = () => {
         <section id="films">
           <h2>Films appeared in</h2>
           <ul>
-            {character.films.map(film => (
+            {/* {character.films.map(film => (
               <li key={film}>{film}</li>
-            ))}
+            ))} */}
           </ul>
         </section>
       </main>
