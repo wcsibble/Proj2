@@ -84,6 +84,120 @@ app.get("/api/films/:id", async (req, res) => {
   }
 });
 
+app.get("/api/films/:id/characters", async (req, res) => {
+  try {
+    const { id } = req.params;
+    console.log(id);
+
+    let collection = db.collection("films_characters");
+    const filmCharacters = await collection
+      .find({ film_id: Number(id) })
+      .toArray();
+    const characterIds = filmCharacters.map((obj) => obj.character_id);
+
+    collection = db.collection("characters");
+    const characters = [];
+    for (const cId of characterIds) {
+      characters.push(await collection.findOne({ id: Number(cId) }));
+    }
+    res.json(characters);
+  } catch (err) {
+    console.error("Error:", err);
+    res
+      .status(500)
+      .send("Hmm, something doesn't smell right... Error deleting sock");
+  }
+});
+
+app.get("/api/films/:id/planets", async (req, res) => {
+  try {
+    const { id } = req.params;
+    console.log(id);
+
+    let collection = db.collection("films_planets");
+    const filmPlanets = await collection
+      .find({ film_id: Number(id) })
+      .toArray();
+    const planetIds = filmPlanets.map((obj) => obj.planet_id);
+
+    collection = db.collection("planets");
+    const planets = [];
+    for (const pId of planetIds) {
+      planets.push(await collection.findOne({ id: Number(pId) }));
+    }
+    res.json(planets);
+  } catch (err) {
+    console.error("Error:", err);
+    res
+      .status(500)
+      .send("Hmm, something doesn't smell right... Error deleting sock");
+  }
+});
+
+app.get("/api/characters/:id/films", async (req, res) => {
+  try {
+    const { id } = req.params;
+    console.log(id);
+
+    let collection = db.collection("films_characters");
+    const characterFilms = await collection
+      .find({ character_id: Number(id) })
+      .toArray();
+    const filmIds = characterFilms.map((obj) => obj.film_id);
+
+    collection = db.collection("films");
+    const films = [];
+    for (const fId of filmIds) {
+      films.push(await collection.findOne({ id: Number(fId) }));
+    }
+    res.json(films);
+  } catch (err) {
+    console.error("Error:", err);
+    res
+      .status(500)
+      .send("Hmm, something doesn't smell right... Error deleting sock");
+  }
+});
+
+app.get("/api/planets/:id/films", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    let collection = db.collection("films_planets");
+    const planetFilms = await collection
+      .find({ planet_id: Number(id) })
+      .toArray();
+    const filmIds = planetFilms.map((obj) => obj.film_id);
+
+    collection = db.collection("films");
+    const films = [];
+    for (const fId of filmIds) {
+      films.push(await collection.findOne({ id: Number(fId) }));
+    }
+    res.json(films);
+  } catch (err) {
+    console.error("Error:", err);
+    res
+      .status(500)
+      .send("Hmm, something doesn't smell right... Error deleting sock");
+  }
+});
+
+app.get("/api/planets/:id/characters", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const collection = db.collection("characters");
+    const findRes = await collection.find({ homeworld: Number(id) }).toArray();
+    res.json(findRes);
+  } catch (err) {
+    console.error("Error:", err);
+    res
+      .status(500)
+      .send("Hmm, something doesn't smell right... Error deleting sock");
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
