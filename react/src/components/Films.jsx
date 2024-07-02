@@ -1,14 +1,13 @@
-import { useSearchParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 
 const Films = () => {
   const [film, setFilm] = useState({});
   const [planets, setPlanets] = useState([]);
   const [characters, setCharacters] = useState([]);
+  const { id } = useParams();
 
   useEffect(() => {
-    let params = new URL(document.location).searchParams;
-    let id = params.get("id");
     console.log(id);
 
     const getFilm = async (id) => {
@@ -72,13 +71,14 @@ const Films = () => {
         <ul>
           {characters.map((character) => (
             <li key={character.id}>
-              <a
+              {/* <a
                 onClick={() => {
                   window.location = `/characters?id=${character.id}`;
                 }}
               >
                 {character.name}
-              </a>
+              </a> */}
+              <Link to={`/characters/${character.id}`}>{character.name}</Link>
             </li>
           ))}
         </ul>
@@ -88,13 +88,14 @@ const Films = () => {
         <ul>
           {planets.map((planet) => (
             <li key={planet.id}>
-              <a
+              {/* <a
                 onClick={() => {
                   window.location = `/planets?id=${planet.id}`;
                 }}
               >
                 {planet.name}
-              </a>
+              </a> */}
+              <Link to={`/planets/${planet.id}`}>{planet.name}</Link>
             </li>
           ))}
         </ul>

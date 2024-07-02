@@ -1,9 +1,9 @@
-import { useParams, Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useParams, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const Characters = () => {
   const [character, setCharacter] = useState({});
-  const [planet, setPlanet] = useState('');
+  const [planet, setPlanet] = useState("");
   const [films, setFilms] = useState([]);
   const { id } = useParams();
 
@@ -21,7 +21,7 @@ const Characters = () => {
         console.log(fetchedCharacter);
         await getPlanet(fetchedCharacter.homeworld);
       } catch (ex) {
-        console.error('Error reading characters.', ex.message);
+        console.error("Error reading characters.", ex.message);
       }
     };
     const getPlanet = async (homeworldId) => {
@@ -31,14 +31,14 @@ const Characters = () => {
       try {
         const fetchedCharacter = await fetch(url).then((res) => res.json());
         if (fetchedCharacter) {
-          console.log('good');
+          console.log("good");
         } else {
-          console.log('bad');
+          console.log("bad");
         }
         setPlanet(fetchedCharacter.name);
         console.log(fetchedCharacter);
       } catch (ex) {
-        console.error('Error reading characters.', ex.message);
+        console.error("Error reading characters.", ex.message);
       }
     };
     const getFilms = async (id) => {
@@ -50,7 +50,7 @@ const Characters = () => {
         setFilms(fetchedCharacter);
         console.log(fetchedCharacter);
       } catch (ex) {
-        console.error('Error reading characters.', ex.message);
+        console.error("Error reading characters.", ex.message);
       }
     };
 
@@ -92,13 +92,14 @@ const Characters = () => {
         <ul>
           {films.map((film) => (
             <li key={film.id}>
-              <a
+              {/* <a
                 onClick={() => {
                   window.location = `/films?id=${film.id}`;
                 }}
               >
                 {film.title}
-              </a>
+              </a> */}
+              <Link to={`/films/${film.id}`}>{film.title}</Link>
             </li>
           ))}
         </ul>

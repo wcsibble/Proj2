@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import './index.css';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import Characters from './components/Characters';
-import Home from './components/Home';
-import Films from './components/Films';
-import Planets from './components/Planets';
+import React, { useEffect, useState } from "react";
+import "./index.css";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import Characters from "./components/Characters";
+import Home from "./components/Home";
+import Films from "./components/Films";
+import Planets from "./components/Planets";
 
 const App = () => {
   return (
@@ -13,8 +13,8 @@ const App = () => {
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route path="/Characters/:id" element={<Characters />} />
-          <Route exact path="/Films" element={<Films />} />
-          <Route exact path="/Planets" element={<Planets />} />
+          <Route exact path="/Films/:id" element={<Films />} />
+          <Route exact path="/Planets/:id" element={<Planets />} />
         </Routes>
       </Router>
     </>

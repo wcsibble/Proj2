@@ -34,14 +34,10 @@ const Home = () => {
     setSearchString(e.target.value);
   };
 
-  const goToCharacterPage = (id) => {
-    window.location = `/characters?id=${id}`;
-  };
-
   const renderCharacters = (charactersList) => {
     return charactersList.map((character) => (
-      <div key={character.id} onClick={() => goToCharacterPage(character.id)}>
-        {character.name}
+      <div key={character.id}>
+        <Link to={`/characters/${character.id}`}>{character.name}</Link>
       </div>
     ));
   };

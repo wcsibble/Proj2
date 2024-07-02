@@ -1,14 +1,15 @@
-import { useSearchParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 
 const Planets = () => {
   const [planet, setPlanet] = useState({});
   const [characters, setCharacters] = useState([]);
   const [films, setFilms] = useState([]);
+  const { id } = useParams();
 
   useEffect(() => {
-    let params = new URL(document.location).searchParams;
-    let id = params.get("id");
+    // let params = new URL(document.location).searchParams;
+    // let id = params.get("id");
     console.log(id);
 
     const getFilms = async (id) => {
@@ -75,13 +76,14 @@ const Planets = () => {
         <ul>
           {characters.map((character) => (
             <li key={character.id}>
-              <a
+              {/* <a
                 onClick={() => {
                   window.location = `/characters?id=${character.id}`;
                 }}
               >
                 {character.name}
-              </a>
+              </a> */}
+              <Link to={`/characters/${character.id}`}>{character.name}</Link>
             </li>
           ))}
         </ul>
@@ -91,13 +93,14 @@ const Planets = () => {
         <ul>
           {films.map((film) => (
             <li key={film.id}>
-              <a
+              {/* <a
                 onClick={() => {
-                  window.location = `/films?id=${film.id}`;
+                  window.location = `/films/${film.id}`;
                 }}
               >
                 {film.title}
-              </a>
+              </a> */}
+              <Link to={`/films/${film.id}`}>{film.title}</Link>
             </li>
           ))}
         </ul>
