@@ -13,6 +13,8 @@ const db = client.db(dbName);
 
 const app = express();
 app.use(cors());
+
+app.use(express.static('./public'));
 const PORT = 3000;
 
 // Middleware to parse JSON bodies
