@@ -1,14 +1,14 @@
-import { useSearchParams } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import { useParams, Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 const Characters = () => {
   const [character, setCharacter] = useState({});
-  const [planet, setPlanet] = useState("");
+  const [planet, setPlanet] = useState('');
   const [films, setFilms] = useState([]);
+  const { id } = useParams();
 
   useEffect(() => {
-    let params = new URL(document.location).searchParams;
-    let id = params.get("id");
+    //let params = new URL(document.location).searchParams;
     console.log(id);
 
     const getCharacter = async (id) => {
@@ -21,7 +21,7 @@ const Characters = () => {
         console.log(fetchedCharacter);
         await getPlanet(fetchedCharacter.homeworld);
       } catch (ex) {
-        console.error("Error reading characters.", ex.message);
+        console.error('Error reading characters.', ex.message);
       }
     };
     const getPlanet = async (homeworldId) => {
@@ -31,14 +31,14 @@ const Characters = () => {
       try {
         const fetchedCharacter = await fetch(url).then((res) => res.json());
         if (fetchedCharacter) {
-          console.log("good");
+          console.log('good');
         } else {
-          console.log("bad");
+          console.log('bad');
         }
         setPlanet(fetchedCharacter.name);
         console.log(fetchedCharacter);
       } catch (ex) {
-        console.error("Error reading characters.", ex.message);
+        console.error('Error reading characters.', ex.message);
       }
     };
     const getFilms = async (id) => {
@@ -50,7 +50,7 @@ const Characters = () => {
         setFilms(fetchedCharacter);
         console.log(fetchedCharacter);
       } catch (ex) {
-        console.error("Error reading characters.", ex.message);
+        console.error('Error reading characters.', ex.message);
       }
     };
 
@@ -77,13 +77,13 @@ const Characters = () => {
         <h2>Homeworld</h2>
         <p>
           <span id="homeworld">
-            <a
+            {/* <a
               onClick={() => {
                 window.location = `/planets?id=${character.homeworld}`;
               }}
-            >
-              {planet}
-            </a>
+            > {planet}
+            </a>*/}
+            <Link to={`/planets/${character.homeworld}`}>{planet}</Link>
           </span>
         </p>
       </section>
