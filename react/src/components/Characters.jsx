@@ -18,6 +18,8 @@ const Characters = () => {
       try {
         const fetchedCharacter = await fetch(url).then((res) => res.json());
         setCharacter(fetchedCharacter);
+        console.log(fetchedCharacter);
+        await getPlanet(fetchedCharacter.homeworld);
       } catch (ex) {
         console.error("Error reading characters.", ex.message);
       }
@@ -28,6 +30,11 @@ const Characters = () => {
 
       try {
         const fetchedCharacter = await fetch(url).then((res) => res.json());
+        if (fetchedCharacter) {
+          console.log("good");
+        } else {
+          console.log("bad");
+        }
         setPlanet(fetchedCharacter.name);
         console.log(fetchedCharacter);
       } catch (ex) {
@@ -48,7 +55,7 @@ const Characters = () => {
     };
 
     getCharacter(id);
-    getPlanet(id);
+    // getPlanet(id);
     getFilms(id);
   }, []);
 
@@ -70,7 +77,13 @@ const Characters = () => {
         <h2>Homeworld</h2>
         <p>
           <span id="homeworld">
-            <a>{planet}</a>
+            <a
+              onClick={() => {
+                window.location = `/planets?id=${character.homeworld}`;
+              }}
+            >
+              {planet}
+            </a>
           </span>
         </p>
       </section>
@@ -79,7 +92,13 @@ const Characters = () => {
         <ul>
           {films.map((film) => (
             <li key={film.id}>
-              <a>{film.title}</a>
+              <a
+                onClick={() => {
+                  window.location = `/films?id=${film.id}`;
+                }}
+              >
+                {film.title}
+              </a>
             </li>
           ))}
         </ul>
